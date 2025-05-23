@@ -48,28 +48,28 @@ make test-all
 
 ```
 e2e_test_poc/
-├── 📂 app/                                       # Rails application code
+├── 📂 app/                                  # Rails application code
 │   ├── controllers/posts_controller.rb
 │   ├── models/post.rb
 │   └── views/posts/
-├── 📂 test/                                       # MiniTest & System Tests
+├── 📂 test/                                  # MiniTest & System Tests
 │   ├── system/posts_test.rb
 │   └── application_system_test_case.rb
-├── 📂 spec/                                      # RSpec Tests
+├── 📂 spec/                                 # RSpec Tests
 │   ├── features/posts_spec.rb
 │   ├── factories/posts.rb
 │   └── rails_helper.rb
-├── 📂 features/                                 # Cucumber Tests
+├── 📂 features/                            # Cucumber Tests
 │   ├── posts.feature
 │   ├── step_definitions/post_steps.rb
 │   └── support/env.rb
-├── 📂 playwright-tests/                      # Playwright E2E Tests (TypeScript)
+├── 📂 playwright-tests/                 # Playwright E2E Tests (TypeScript)
 │   ├── tests/posts.spec.ts
 │   ├── tests/posts-advanced.spec.ts
 │   ├── tests/helpers/database-helper.ts
 │   └── playwright.config.ts
-├── Gemfile                                        # Ruby dependencies
-├── Makefile                                       # Automation commands
+├── Gemfile
+├── Makefile
 └── README.md
 ```
 
@@ -83,42 +83,52 @@ e2e_test_poc/
 | **Cucumber** | Gherkin | Human language | Stakeholder communication | ⚡⚡ | 🔧 Complex |
 | **Playwright** | TypeScript | Modern async | Cross-browser E2E | ⚡⚡⚡⚡ | 🔧 Complex |
 
+## 📊 Detailed Framework Analysis
+
+| Framework | Setup Complexity | Learning Curve | Readability | Performance | Best For |
+|-----------|------------------|----------------|-------------|-------------|----------|
+| **MiniTest** | ⭐⭐⭐⭐⭐ (Minimal) | ⭐⭐⭐⭐⭐ (Easy) | ⭐⭐⭐ (Good) | ⭐⭐⭐⭐⭐ (Fast) | Quick tests, built-in Rails |
+| **RSpec** | ⭐⭐⭐ (Moderate) | ⭐⭐⭐ (Medium) | ⭐⭐⭐⭐⭐ (Excellent) | ⭐⭐⭐⭐ (Good) | Complex applications, BDD |
+| **Capybara** | ⭐⭐⭐ (Moderate) | ⭐⭐⭐⭐ (Easy) | ⭐⭐⭐⭐ (Very Good) | ⭐⭐⭐ (Slower) | User interaction testing |
+| **Cucumber** | ⭐⭐ (Complex) | ⭐⭐⭐ (Medium) | ⭐⭐⭐⭐⭐ (Natural language) | ⭐⭐ (Slow) | Stakeholder communication |
+| **Playwright** | ⭐⭐ (Complex) | ⭐⭐ (Steep) | ⭐⭐⭐ (Good) | ⭐⭐⭐⭐ (Good) | Cross-browser E2E testing |
+
 ## 🎮 Available Commands
 
 ### Setup Commands
 ```bash
-make setup                   # Complete project setup
-make setup-tests           # Setup all testing frameworks
+make setup              # Complete project setup
+make setup-tests        # Setup all testing frameworks
 make setup-playwright   # Setup Playwright only
-make db-setup              # Database setup
-make generate-blog       # Generate sample blog app
+make db-setup          # Database setup
+make generate-blog     # Generate sample blog app
 ```
 
 ### Testing Commands
 ```bash
 # Run individual frameworks
-make test-minitest       # Rails MiniTest
-make test-rspec           # RSpec tests
+make test-minitest     # Rails MiniTest
+make test-rspec        # RSpec tests
 make test-cucumber     # Cucumber scenarios
-make test-capybara      # Capybara system tests
-make test-playwright    # Playwright E2E tests
+make test-capybara     # Capybara system tests
+make test-playwright   # Playwright E2E tests
 
 # Run all tests
-make test-all            # All frameworks sequentially
+make test-all          # All frameworks sequentially
 make test-parallel     # All frameworks in parallel
 
 # Development testing
-make test-fast            # Quick smoke tests only
+make test-fast         # Quick smoke tests only
 make test-debug        # Playwright with browser visible
 ```
 
 ### Development Commands
 ```bash
-make dev                 # Start Rails development server
+make dev               # Start Rails development server
 make console           # Rails console
-make routes             # Show all routes
-make clean              # Clean test artifacts
-make reset              # Reset database and restart
+make routes            # Show all routes
+make clean             # Clean test artifacts
+make reset             # Reset database and restart
 ```
 
 ## 📝 Test Examples
@@ -334,11 +344,49 @@ make coverage
 
 ## 📚 Resources & Documentation
 
-- [Rails Testing Guide](https://guides.rubyonrails.org/testing.html)
-- [RSpec Documentation](https://rspec.info/)
-- [Cucumber Documentation](https://cucumber.io/docs)
-- [Capybara Documentation](https://github.com/teamcapybara/capybara)
-- [Playwright Documentation](https://playwright.dev/)
+### General Testing Resources
+- [Rails Testing Guide](https://guides.rubyonrails.org/testing.html) - Official Rails testing documentation
+- [Ruby Testing Handbook](https://testing-handbook.com/) - Comprehensive Ruby testing guide
+- [Test-Driven Development](https://martinfowler.com/bliki/TestDrivenDevelopment.html) - Martin Fowler's TDD guide
+
+### Framework-Specific Documentation
+
+#### MiniTest
+- [MiniTest Documentation](https://github.com/minitest/minitest) - Official MiniTest repository
+- [Rails System Testing](https://guides.rubyonrails.org/testing.html#system-testing) - Rails system testing with MiniTest
+
+#### RSpec
+- [RSpec Documentation](https://rspec.info/) - Official RSpec website
+- [RSpec Rails](https://github.com/rspec/rspec-rails) - RSpec for Rails applications
+- [Better Specs](https://www.betterspecs.org/) - RSpec best practices guide
+
+#### Capybara
+- [Capybara Documentation](https://github.com/teamcapybara/capybara) - Official Capybara repository
+- [Capybara Cheat Sheet](https://devhints.io/capybara) - Quick reference guide
+
+#### Cucumber
+- [Cucumber Documentation](https://cucumber.io/docs) - Official Cucumber documentation
+- [Gherkin Reference](https://cucumber.io/docs/gherkin/) - Gherkin syntax guide
+- [Cucumber Best Practices](https://cucumber.io/docs/guides/10-minute-tutorial/) - Getting started tutorial
+
+#### Playwright
+- **[Playwright Documentation](https://playwright.dev/)** - Official Playwright documentation
+- **[Playwright Test API](https://playwright.dev/docs/api/class-test)** - Complete API reference
+- **[Best Practices](https://playwright.dev/docs/best-practices)** - Playwright testing best practices
+- **[Debugging Guide](https://playwright.dev/docs/debug)** - Comprehensive debugging techniques
+- [Playwright with TypeScript](https://playwright.dev/docs/test-typescript) - TypeScript configuration
+- [Cross-browser Testing](https://playwright.dev/docs/browsers) - Multi-browser setup guide
+- [Visual Comparisons](https://playwright.dev/docs/test-screenshots) - Screenshot testing guide
+
+### Performance & Optimization
+- [Rails Performance Testing](https://guides.rubyonrails.org/testing.html#performance-testing) - Performance testing in Rails
+- [Test Optimization Strategies](https://semaphoreci.com/blog/2017/08/03/faster-rails-tests.html) - Speeding up test suites
+- [Parallel Testing](https://guides.rubyonrails.org/testing.html#parallel-testing) - Running tests in parallel
+
+### CI/CD Integration
+- [GitHub Actions for Rails](https://docs.github.com/en/actions/guides/building-and-testing-ruby) - CI/CD with GitHub Actions
+- [CircleCI Rails Guide](https://circleci.com/docs/2.0/language-ruby/) - CircleCI integration
+- [Jenkins Pipeline](https://www.jenkins.io/doc/tutorials/build-a-ruby-app-with-jenkins/) - Jenkins CI/CD setup
 
 ## 🏷️ Framework Tags
 
