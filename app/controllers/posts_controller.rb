@@ -5,6 +5,7 @@ class PostsController < ApplicationController
   def index
     @published_posts = Post.published
     @draft_posts = Post.drafts
+    @posts = Post.all
   end
 
   # GET /posts/1 or /posts/1.json

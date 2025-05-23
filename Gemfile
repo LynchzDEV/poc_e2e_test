@@ -10,8 +10,6 @@ gem "stimulus-rails"
 gem "tailwindcss-rails"
 gem "jbuilder"
 
-# gem "bcrypt", "~> 3.1.7"
-
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
 gem "solid_cache"
@@ -30,6 +28,9 @@ group :development, :test do
   gem "brakeman", require: false
   gem "rubocop-rails-omakase", require: false
   gem "dotenv-rails"
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
+  gem 'faker'
 end
 
 group :development do
@@ -39,4 +40,9 @@ end
 group :test do
   gem "capybara"
   gem "selenium-webdriver"
+  gem 'rspec-retry'
+  gem 'cucumber-rails', require: false
+  gem 'database_cleaner-active_record'
+  gem 'playwright-ruby-client'
+  gem 'webdrivers'
 end

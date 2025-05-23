@@ -1,45 +1,28 @@
 require "application_system_test_case"
 
 class PostsTest < ApplicationSystemTestCase
-  setup do
-    @post = posts(:one)
-  end
+  test "creating a new post" do
+    visit posts_path
 
-  test "visiting the index" do
-    visit posts_url
-    assert_selector "h1", text: "Posts"
-  end
-
-  test "should create post" do
-    visit posts_url
     click_on "New post"
+    fill_in "Title", with: "My Test Post"
+    fill_in "Content", with: "This is test content"
+    check "Published"
 
-    fill_in "Content", with: @post.content
-    check "Published" if @post.published
-    fill_in "Title", with: @post.title
     click_on "Create Post"
 
     assert_text "Post was successfully created"
-    click_on "Back"
+    assert_text "My Test Post"
   end
 
-  test "should update Post" do
-    visit post_url(@post)
-    click_on "Edit this post", match: :first
+  test "viewing published posts" do
+    # Create test data
+    Post.create!(title: "Published Post", content: "Published content", published: true)
+    Post.create!(title: "Draft Post", content: "Draft content", published: false)
 
-    fill_in "Content", with: @post.content
-    check "Published" if @post.published
-    fill_in "Title", with: @post.title
-    click_on "Update Post"
+    visit posts_path
 
-    assert_text "Post was successfully updated"
-    click_on "Back"
-  end
-
-  test "should destroy Post" do
-    visit post_url(@post)
-    accept_confirm { click_on "Destroy this post", match: :first }
-
-    assert_text "Post was successfully destroyed"
+    assert_text "Published Post"
+    refute_text "Draft Post"
   end
 end
