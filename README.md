@@ -80,7 +80,7 @@ e2e_test_poc/
 | **MiniTest** | Ruby | Assert-based | Quick tests, built into Rails | ⚡⚡⚡⚡⚡ | ✅ Built-in |
 | **RSpec** | Ruby | Behavior-driven | Complex apps, readable tests | ⚡⚡⚡⚡ | 🔧 Moderate |
 | **Capybara** | Ruby | User-focused | Browser simulation | ⚡⚡⚡ | 🔧 Moderate |
-| **Cucumber** | Gherkin | Human language | Stakeholder communication | ⚡⚡ | 🔧 Complex |
+| **Cucumber** | Gherkin | Human language | Stakeholder communication | ⚡⚡ | 🔧 Moderate |
 | **Playwright** | TypeScript | Modern async | Cross-browser E2E | ⚡⚡⚡⚡ | 🔧 Complex |
 
 ## 📊 Detailed Framework Analysis
