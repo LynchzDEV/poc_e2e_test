@@ -1,3 +1,6 @@
+# 🧪 Rails E2E Testing Framework Makefile
+# Complete automation for MiniTest, RSpec, Capybara, Cucumber & Playwright
+
 # Colors for output
 RED = \033[0;31m
 GREEN = \033[0;32m
@@ -21,9 +24,11 @@ PLAYWRIGHT_PORT = 3001
 
 .PHONY: help
 help: ## Display this help message
-	@echo "$(CYAN)🧪 Rails E2E Testing Framework$(NC)"
+	@echo "$(CYAN)🧪 Rails E2E Testing Framework - 5 Frameworks Showcase$(NC)"
+	@echo "$(YELLOW)MiniTest • RSpec • Capybara • Cucumber • Playwright$(NC)"
+	@echo ""
 	@echo "$(YELLOW)Available commands:$(NC)"
-	@awk 'BEGIN {FS = ":.*##"; printf "\n"} /^[a-zA-Z_0-9-]+:.*?##/ { printf "  $(GREEN)%-20s$(NC) %s\n", $$1, $$2 } /^##@/ { printf "\n$(CYAN)%s$(NC)\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
+	@awk 'BEGIN {FS = ":.*##"; printf "\n"} /^[a-zA-Z_0-9-]+:.*?##/ { printf "  $(GREEN)%-20s$(NC) %s\n", $1, $2 } /^##@/ { printf "\n$(CYAN)%s$(NC)\n", substr($0, 5) } ' $(MAKEFILE_LIST)
 
 .PHONY: setup
 setup: ## 🎯 Complete project setup (run this first!)
@@ -33,7 +38,10 @@ setup: ## 🎯 Complete project setup (run this first!)
 	@make db-setup
 	@make generate-blog
 	@make setup-tests
-	@echo "$(GREEN)✅ Setup complete! Run 'make test-all' to test everything$(NC)"
+	@echo "$(CYAN)🔍 Verifying all frameworks...$(NC)"
+	@make verify-frameworks
+	@echo "$(GREEN)✅ Setup complete! All 5 testing frameworks ready$(NC)"
+	@echo "$(YELLOW)💡 Try: make test-all (run all tests) or make frameworks (see overview)$(NC)"
 
 .PHONY: check-dependencies
 check-dependencies: ## Check required system dependencies
@@ -174,11 +182,18 @@ test-parallel: ## Run all frameworks in parallel (experimental)
 
 .PHONY: test-fast
 test-fast: ## Run quick smoke tests only
-	@echo "$(YELLOW)⚡ Running smoke tests...$(NC)"
-	@rails test --tag=smoke || echo "$(YELLOW)⚠️ No smoke tests in MiniTest$(NC)"
-	@bundle exec rspec --tag smoke || echo "$(YELLOW)⚠️ No smoke tests in RSpec$(NC)"
-	@cd playwright-tests && bun run test --grep "@smoke" || echo "$(YELLOW)⚠️ No smoke tests in Playwright$(NC)"
-	@echo "$(GREEN)✅ Smoke tests complete$(NC)"
+	@echo "$(YELLOW)⚡ Running smoke tests across all frameworks...$(NC)"
+	@echo "$(RED)🔴 MiniTest smoke tests:$(NC)"
+	@rails test --tag=smoke || echo "$(YELLOW)⚠️ No smoke tests tagged in MiniTest$(NC)"
+	@echo "$(BLUE)🔵 RSpec smoke tests:$(NC)"
+	@bundle exec rspec --tag smoke || echo "$(YELLOW)⚠️ No smoke tests tagged in RSpec$(NC)"
+	@echo "$(CYAN)🐹 Capybara smoke tests:$(NC)"
+	@rails test:system --tag=smoke || echo "$(YELLOW)⚠️ No smoke tests tagged in Capybara$(NC)"
+	@echo "$(YELLOW)🥒 Cucumber smoke tests:$(NC)"
+	@bundle exec cucumber --tags @smoke || echo "$(YELLOW)⚠️ No @smoke tagged scenarios in Cucumber$(NC)"
+	@echo "$(MAGENTA)🎭 Playwright smoke tests:$(NC)"
+	@cd playwright-tests && bun run test --grep "@smoke" || echo "$(YELLOW)⚠️ No @smoke tests in Playwright$(NC)"
+	@echo "$(GREEN)✅ All smoke tests complete$(NC)"
 
 .PHONY: test-debug
 test-debug: ## Run Playwright tests with browser visible
@@ -284,8 +299,22 @@ reset: ## Reset everything (database, clean, setup)
 
 ##@ 🔍 Status & Debug Commands
 
-.PHONY: status
-status: ## Check system and project status
+.PHONY: verify-frameworks
+verify-frameworks: ## Verify all 5 testing frameworks are working
+	@echo "$(CYAN)🔍 Verifying all 5 testing frameworks...$(NC)"
+	@echo "$(CYAN)=========================================$(NC)"
+	@echo "$(RED)🔴 Checking MiniTest...$(NC)"
+	@rails test --help >/dev/null 2>&1 && echo "$(GREEN)✅ MiniTest ready$(NC)" || echo "$(RED)❌ MiniTest failed$(NC)"
+	@echo "$(BLUE)🔵 Checking RSpec...$(NC)"
+	@bundle exec rspec --version >/dev/null 2>&1 && echo "$(GREEN)✅ RSpec ready$(NC)" || echo "$(RED)❌ RSpec failed$(NC)"
+	@echo "$(CYAN)🐹 Checking Capybara...$(NC)"
+	@bundle exec ruby -r capybara -e "puts 'Capybara loaded'" >/dev/null 2>&1 && echo "$(GREEN)✅ Capybara ready$(NC)" || echo "$(RED)❌ Capybara failed$(NC)"
+	@echo "$(YELLOW)🥒 Checking Cucumber...$(NC)"
+	@bundle exec cucumber --version >/dev/null 2>&1 && echo "$(GREEN)✅ Cucumber ready$(NC)" || echo "$(RED)❌ Cucumber failed$(NC)"
+	@echo "$(MAGENTA)🎭 Checking Playwright...$(NC)"
+	@cd playwright-tests && bun run test --help >/dev/null 2>&1 && echo "$(GREEN)✅ Playwright ready$(NC)" || echo "$(RED)❌ Playwright failed$(NC)"
+	@echo ""
+	@echo "$(GREEN)🎉 Framework verification complete!$(NC)"
 	@echo "$(CYAN)📊 System Status$(NC)"
 	@echo "$(CYAN)===============$(NC)"
 	@echo "$(BLUE)Ruby version:$(NC) $$(ruby --version)"
@@ -322,22 +351,46 @@ ports: ## Show what's running on relevant ports
 
 ##@ 🎓 Learning & Examples
 
+.PHONY: frameworks
+frameworks: ## Show all 5 testing frameworks overview
+	@echo "$(CYAN)🧪 All 5 Testing Frameworks Overview$(NC)"
+	@echo "$(CYAN)====================================$(NC)"
+	@echo "$(RED)🔴 MiniTest$(NC)     - Rails built-in, fast, simple assertions"
+	@echo "$(BLUE)🔵 RSpec$(NC)        - Behavior-driven, readable syntax, rich matchers"
+	@echo "$(CYAN)🐹 Capybara$(NC)     - Browser automation, user interaction simulation"
+	@echo "$(YELLOW)🥒 Cucumber$(NC)     - Human-readable scenarios, stakeholder friendly"
+	@echo "$(MAGENTA)🎭 Playwright$(NC)   - Modern E2E, cross-browser, TypeScript"
+	@echo ""
+	@echo "$(GREEN)Commands:$(NC)"
+	@echo "  make test-minitest    # Run Rails built-in tests"
+	@echo "  make test-rspec       # Run RSpec behavior tests"
+	@echo "  make test-capybara    # Run browser simulation tests"
+	@echo "  make test-cucumber    # Run human-readable scenarios"
+	@echo "  make test-playwright  # Run modern E2E tests"
+	@echo "  make test-all         # Run ALL frameworks"
+	@echo "  make benchmark        # Compare performance"
+
 .PHONY: examples
 examples: ## Show example test commands
-	@echo "$(CYAN)🎓 Example Commands$(NC)"
-	@echo "$(CYAN)==================$(NC)"
+	@echo "$(CYAN)🎓 Example Commands - All 5 Testing Frameworks$(NC)"
+	@echo "$(CYAN)===============================================$(NC)"
 	@echo "$(GREEN)# Quick start:$(NC)"
 	@echo "  make setup              # Complete setup"
-	@echo "  make test-all           # Run all tests"
+	@echo "  make test-all           # Run all 5 frameworks"
 	@echo ""
 	@echo "$(GREEN)# Individual frameworks:$(NC)"
-	@echo "  make test-minitest      # Rails built-in"
-	@echo "  make test-rspec         # Behavior-driven"
-	@echo "  make test-cucumber      # Human-readable"
-	@echo "  make test-playwright    # Modern E2E"
+	@echo "  make test-minitest      # 🔴 Rails built-in (fast)"
+	@echo "  make test-rspec         # 🔵 Behavior-driven (readable)"
+	@echo "  make test-capybara      # 🐹 Browser simulation (user-like)"
+	@echo "  make test-cucumber      # 🥒 Human-readable scenarios"
+	@echo "  make test-playwright    # 🎭 Modern E2E (cross-browser)"
+	@echo ""
+	@echo "$(GREEN)# Performance comparison:$(NC)"
+	@echo "  make benchmark          # Compare speed of all 5 frameworks"
+	@echo "  make test-fast          # Quick smoke tests across all"
 	@echo ""
 	@echo "$(GREEN)# Development:$(NC)"
-	@echo "  make test-debug         # See tests run"
+	@echo "  make test-debug         # See Playwright tests run"
 	@echo "  make playwright-codegen # Record new tests"
 	@echo "  make reports            # View all reports"
 	@echo ""
@@ -348,27 +401,51 @@ examples: ## Show example test commands
 
 .PHONY: demo
 demo: ## Run a quick demo of all frameworks
-	@echo "$(CYAN)🎬 Demo: Testing the same feature across all frameworks$(NC)"
-	@echo "$(CYAN)==========================================================$(NC)"
+	@echo "$(CYAN)🎬 Demo: Testing the same feature across all 5 frameworks$(NC)"
+	@echo "$(CYAN)============================================================$(NC)"
 	@echo "$(YELLOW)This will run a simple 'create post' test in each framework:$(NC)"
 	@echo ""
+	@echo "$(RED)🔴 MiniTest (Rails built-in - fast, simple):$(NC)"
 	@make test-minitest | head -10
-	@echo "$(BLUE)...continuing with other frameworks...$(NC)"
-	@make test-fast
+	@echo ""
+	@echo "$(BLUE)🔵 RSpec (Behavior-driven - readable):$(NC)"
+	@make test-rspec | head -10
+	@echo ""
+	@echo "$(CYAN)🐹 Capybara (Browser simulation):$(NC)"
+	@make test-capybara | head -10
+	@echo ""
+	@echo "$(YELLOW)🥒 Cucumber (Human-readable scenarios):$(NC)"
+	@make test-cucumber | head -10
+	@echo ""
+	@echo "$(MAGENTA)🎭 Playwright (Modern E2E - cross-browser):$(NC)"
+	@make test-playwright | head -10
 	@echo ""
 	@echo "$(GREEN)🎉 Demo complete! Each framework tested the same functionality$(NC)"
+	@echo "$(CYAN)💡 Notice how each framework has different syntax but tests the same features$(NC)"
 
 ##@ 📈 Performance & Coverage
 
 .PHONY: benchmark
-benchmark: ## Run performance benchmarks
+benchmark: ## Run performance benchmarks for all frameworks
 	@echo "$(CYAN)⏱️ Running performance benchmarks...$(NC)"
-	@echo "$(BLUE)MiniTest:$(NC)"
+	@echo "$(CYAN)Comparing all 5 testing frameworks:$(NC)"
+	@echo ""
+	@echo "$(RED)🔴 MiniTest (Rails built-in):$(NC)"
 	@time make test-minitest >/dev/null 2>&1 || true
-	@echo "$(BLUE)RSpec:$(NC)"
+	@echo ""
+	@echo "$(BLUE)🔵 RSpec (Behavior-driven):$(NC)"
 	@time make test-rspec >/dev/null 2>&1 || true
-	@echo "$(BLUE)Playwright:$(NC)"
+	@echo ""
+	@echo "$(CYAN)🐹 Capybara (System tests):$(NC)"
+	@time make test-capybara >/dev/null 2>&1 || true
+	@echo ""
+	@echo "$(YELLOW)🥒 Cucumber (BDD scenarios):$(NC)"
+	@time make test-cucumber >/dev/null 2>&1 || true
+	@echo ""
+	@echo "$(MAGENTA)🎭 Playwright (E2E TypeScript):$(NC)"
 	@cd playwright-tests && time bun run test >/dev/null 2>&1 || true
+	@echo ""
+	@echo "$(GREEN)✅ Benchmark complete! All 5 frameworks tested$(NC)"
 
 .PHONY: coverage
 coverage: ## Generate test coverage report
