@@ -1,6 +1,6 @@
 # 🧪 Rails E2E Testing Framework Showcase
 
-A comprehensive demonstration of **5 different testing frameworks** working together in a Rails 7 application. This project showcases how to implement and compare MiniTest, RSpec, Capybara, Cucumber, and Playwright for end-to-end testing.
+A comprehensive demonstration of **5 different testing frameworks** working together in a Rails 8 application. This project showcases how to implement and compare MiniTest, RSpec, Capybara, Cucumber, and Playwright for end-to-end testing.
 
 ## 🎯 What This Project Demonstrates
 
