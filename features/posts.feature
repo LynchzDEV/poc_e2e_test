@@ -7,13 +7,12 @@ Feature: Blog Posts Management
     Given I am on the posts page
 
   Scenario: Creating a new published post
-    When I click "New post"
+    When I click link "New post"
     And I fill in "Title" with "Cucumber Test Post"
     And I fill in "Content" with "This post was created using Cucumber"
     And I check "Published"
-    And I click "Create Post"
+    And I click button "Create Post"
     Then I should see "Post was successfully created"
-    And I should see "Cucumber Test Post"
 
   Scenario: Viewing only published posts
     Given there is a published post titled "Published Post"

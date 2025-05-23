@@ -2,7 +2,7 @@ Given('I am on the posts page') do
   visit posts_path
 end
 
-When('I click {string}') do |link_text|
+When('I click link {string}') do |link_text|
   click_link link_text
 end
 
@@ -14,7 +14,7 @@ When('I check {string}') do |checkbox|
   check checkbox
 end
 
-When('I click {string}') do |button_text|
+When('I click button {string}') do |button_text|
   click_button button_text
 end
 

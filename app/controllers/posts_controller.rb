@@ -3,10 +3,11 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
-    @published_posts = Post.published
-    @draft_posts = Post.drafts
-    @posts = Post.published
+    @published_posts = Post.where(published: true)
+    @draft_posts = Post.where(published: false)
+    @posts = @published_posts
   end
+
 
   # GET /posts/1 or /posts/1.json
   def show
