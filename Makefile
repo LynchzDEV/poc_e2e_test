@@ -28,7 +28,7 @@ help: ## Display this help message
 	@echo "$(YELLOW)MiniTest • RSpec • Capybara • Cucumber • Playwright$(NC)"
 	@echo ""
 	@echo "$(YELLOW)Available commands:$(NC)"
-	@awk 'BEGIN {FS = ":.*##"; printf "\n"} /^[a-zA-Z_0-9-]+:.*?##/ { printf "  $(GREEN)%-20s$(NC) %s\n", $1, $2 } /^##@/ { printf "\n$(CYAN)%s$(NC)\n", substr($0, 5) } ' $(MAKEFILE_LIST)
+	@awk 'BEGIN {FS = ":.*##"; printf "\n"} /^[a-zA-Z_0-9-]+:.*?##/ { printf "  \033[0;32m%-20s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[0;36m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 
 .PHONY: setup
 setup: ## 🎯 Complete project setup (run this first!)
