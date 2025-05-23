@@ -48,27 +48,27 @@ make test-all
 
 ```
 e2e_test_poc/
-├── 📂 app/                                  # Rails application code
+├── 📂 app/                    # Rails application code
 │   ├── controllers/posts_controller.rb
 │   ├── models/post.rb
 │   └── views/posts/
-├── 📂 test/                                  # MiniTest & System Tests
+├── 📂 test/                   # MiniTest & System Tests
 │   ├── system/posts_test.rb
-│   └── application_system_test_case.rb
-├── 📂 spec/                                 # RSpec Tests
+│   └── application_system_test_case.rb  
+├── 📂 spec/                   # RSpec Tests
 │   ├── features/posts_spec.rb
 │   ├── factories/posts.rb
 │   └── rails_helper.rb
-├── 📂 features/                            # Cucumber Tests
+├── 📂 features/               # Cucumber Tests
 │   ├── posts.feature
 │   ├── step_definitions/post_steps.rb
 │   └── support/env.rb
-├── 📂 playwright-tests/                 # Playwright E2E Tests (TypeScript)
+├── 📂 playwright-tests/       # Playwright E2E Tests (TypeScript)
 │   ├── tests/posts.spec.ts
 │   ├── tests/posts-advanced.spec.ts
 │   ├── tests/helpers/database-helper.ts
 │   └── playwright.config.ts
-├── Gemfile
+├── Gemfile                    # Ruby dependencies
 ├── Makefile
 └── README.md
 ```
