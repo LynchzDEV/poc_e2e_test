@@ -21,8 +21,8 @@ A comprehensive demonstration of **5 different testing frameworks** working toge
 
 ### Prerequisites
 - **Ruby 3.1+**
-- **Rails 7+**
-- **PostgreSQL**
+- **Rails 8+**
+- **PostgreSQL** (me run as container)
 - **Node.js 18+** (for Playwright)
 - **Bun** (faster alternative to npm)
 
