@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   def index
     @published_posts = Post.published
     @draft_posts = Post.drafts
-    @posts = Post.all
+    @posts = Post.published
   end
 
   # GET /posts/1 or /posts/1.json
@@ -60,13 +60,11 @@ class PostsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_post
-      @post = Post.find(params.expect(:id))
+      @post = Post.find(params.require(:id))
     end
 
-    # Only allow a list of trusted parameters through.
     def post_params
-      params.expect(post: [ :title, :content, :published ])
+      params.require(:post).permit(:title, :content, :published)
     end
 end
