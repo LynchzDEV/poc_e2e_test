@@ -119,7 +119,6 @@ setup-playwright: ## Setup Playwright testing framework
 		bun create playwright@latest playwright-tests --yes; \
 	fi
 	@cd playwright-tests && bun install
-	@cd playwright-tests && bun run install-browsers
 	@mkdir -p playwright-tests/tests/helpers
 	@echo "$(GREEN)✅ Playwright ready$(NC)"
 
